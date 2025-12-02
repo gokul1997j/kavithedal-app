@@ -152,7 +152,7 @@ const MainApp: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 pb-32">
         
         {/* Intro / Hero Section (Small) */}
         <div className="mb-8 text-center md:text-left">
