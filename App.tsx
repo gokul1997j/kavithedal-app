@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, MessageCircle, Menu, X, Globe, Phone, Mail, ShoppingCart, Lock, LayoutDashboard } from 'lucide-react';
+import { BookOpen, MessageCircle, Menu, X, Globe, Phone, Mail, ShoppingCart, Lock } from 'lucide-react';
 import ChatInterface from './components/ChatInterface';
 import BookCard from './components/BookCard';
 import AdminDashboard from './components/AdminDashboard';
@@ -44,25 +44,22 @@ const MainApp: React.FC = () => {
       {/* Admin Login Modal */}
       {showAdminLogin && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-            <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm w-full animate-fade-in-up">
+            <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm w-full">
                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-serif font-bold text-xl flex items-center">
-                        <Lock size={20} className="mr-2 text-stone-400" />
-                        Admin Access
-                    </h3>
+                    <h3 className="font-serif font-bold text-xl">Admin Access</h3>
                     <button onClick={() => setShowAdminLogin(false)}><X size={20} /></button>
                 </div>
                 <form onSubmit={handleAdminLogin}>
                     <input 
                         type="password" 
-                        placeholder="Enter Password (admin123)" 
-                        className="w-full border border-stone-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-orange-500 outline-none transition-all"
+                        placeholder="Enter Admin Password" 
+                        className="w-full border border-stone-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-orange-500 outline-none"
                         value={adminPassword}
                         onChange={e => setAdminPassword(e.target.value)}
                         autoFocus
                     />
-                    <button type="submit" className="w-full bg-stone-900 text-white py-3 rounded-lg font-medium hover:bg-stone-800 transition-colors shadow-lg">
-                        Login to Dashboard
+                    <button type="submit" className="w-full bg-stone-900 text-white py-3 rounded-lg font-medium hover:bg-stone-800">
+                        Login
                     </button>
                 </form>
             </div>
@@ -123,8 +120,8 @@ const MainApp: React.FC = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-stone-100 animate-fade-in-down shadow-lg absolute w-full z-50">
-            <div className="px-4 pt-4 pb-4 space-y-2">
+          <div className="md:hidden bg-white border-t border-stone-100 animate-fade-in-down">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-stone-700 hover:bg-stone-50 hover:text-orange-600">Home</a>
               <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-stone-700 hover:bg-stone-50 hover:text-orange-600">Catalog</a>
             </div>
@@ -140,14 +137,13 @@ const MainApp: React.FC = () => {
              <h1 className="text-3xl md:text-4xl font-serif font-bold text-stone-900 mb-2">
                 Discover Literature that Resonates
              </h1>
-             <p className="text-stone-600 max-w-2xl mx-auto md:mx-0">
+             <p className="text-stone-600 max-w-2xl">
                 Explore our curated collection of Tamil and English literature, poetry, and history. 
                 Use our AI assistant to find the perfect book for your mood.
              </p>
         </div>
 
-        {/* Height calculation adjusted to prevent bottom cut-off on mobile */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100dvh-280px)] min-h-[500px] lg:min-h-[600px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-250px)] min-h-[600px]">
           
           {/* Left Column: Catalog (Hidden on Mobile if Chat active) */}
           <div className={`lg:col-span-8 flex flex-col h-full ${activeTab === 'chat' ? 'hidden lg:flex' : 'flex'}`}>
@@ -171,7 +167,7 @@ const MainApp: React.FC = () => {
             </div>
 
             {/* Book Grid - Scrollable */}
-            <div className="overflow-y-auto pr-2 pb-24 lg:pb-4 scrollbar-hide flex-1">
+            <div className="overflow-y-auto pr-2 pb-4 scrollbar-hide flex-1">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {books.map((book) => (
                     <BookCard 
@@ -194,22 +190,12 @@ const MainApp: React.FC = () => {
                     {/* Decorative circle */}
                     <div className="absolute -top-20 -right-20 w-64 h-64 bg-stone-800 rounded-full opacity-50"></div>
                 </div>
-
-                {/* Admin Access Link - Moved below manuscript banner */}
-                <div className="mt-8 mb-4 text-center">
-                    <button 
-                        onClick={() => setShowAdminLogin(true)}
-                        className="text-xs text-stone-400 hover:text-stone-600 flex items-center justify-center mx-auto transition-colors"
-                    >
-                        <Lock size={12} className="mr-1" /> Admin Access
-                    </button>
-                </div>
             </div>
           </div>
 
           {/* Right Column: Chat Assistant */}
           <div className={`lg:col-span-4 h-full flex flex-col ${activeTab === 'catalog' ? 'hidden lg:flex' : 'flex'}`}>
-             <div className="h-full pb-20 lg:pb-0">
+             <div className="h-full">
                 <ChatInterface 
                     key={initialChatMsg}
                     initialMessage={initialChatMsg} 
@@ -221,7 +207,7 @@ const MainApp: React.FC = () => {
       </main>
 
       {/* Mobile Bottom Tab Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 flex justify-around p-3 z-30 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 flex justify-around p-3 z-30">
         <button 
             onClick={() => setActiveTab('catalog')}
             className={`flex flex-col items-center space-y-1 ${activeTab === 'catalog' ? 'text-orange-600' : 'text-stone-400'}`}
@@ -239,12 +225,11 @@ const MainApp: React.FC = () => {
       </div>
 
       {/* Footer */}
-      {/* Increased bottom margin on mobile (mb-24) to ensure content clears the fixed bottom nav */}
-      <footer className="bg-stone-900 text-stone-400 py-8 mt-auto mb-24 lg:mb-0 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-center md:text-left">
+      <footer className="bg-stone-900 text-stone-400 py-8 mt-auto hidden lg:block">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
             <div>
                 <h4 className="text-white font-bold mb-4">Contact</h4>
-                <div className="space-y-2 flex flex-col items-center md:items-start">
+                <div className="space-y-2">
                     <p className="flex items-center"><Mail size={16} className="mr-2" /> support@kavithedal.com</p>
                     <p className="flex items-center"><Phone size={16} className="mr-2" /> +91-98765-43210</p>
                 </div>
@@ -256,11 +241,17 @@ const MainApp: React.FC = () => {
                     <li><a href="#" className="hover:text-white">Returns & Refunds</a></li>
                 </ul>
             </div>
-            <div className="md:text-right flex flex-col justify-between items-center md:items-end">
+            <div className="text-right flex flex-col justify-between">
                 <div>
                      <p>&copy; 2024 Kavithedal Publication.</p>
                      <p className="mt-1">All rights reserved.</p>
                 </div>
+                <button 
+                    onClick={() => setShowAdminLogin(true)}
+                    className="flex items-center justify-end text-xs text-stone-600 hover:text-stone-400 mt-4"
+                >
+                    <Lock size={12} className="mr-1" /> Admin
+                </button>
             </div>
         </div>
       </footer>
